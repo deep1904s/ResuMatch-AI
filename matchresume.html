@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResuMatch AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --info: #4895ef;
+            --warning: #f72585;
+            --danger: #e63946;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark);
+        }
+        
+        .container {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+        .logo-img {
+    max-width: 120px;
+    margin-bottom: 10px;
+}
+.app-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .app-title {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-subtitle {
+            font-weight: 400;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+        
+        .main-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border: none;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            border-bottom: none;
+            position: relative;
+        }
+        
+        .card-header::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: white;
+            border-radius: 50% 50% 0 0;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        .form-group label {
+            font-weight: 500;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+            border-color: var(--primary);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+        }
+        
+        .job-description-area {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .job-description-area:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+        }
+        
+        .upload-area {
+            background-color: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+            margin-bottom: 1rem;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 10px;
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            background-color: transparent;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .alert-info {
+            background-color: rgba(72, 149, 239, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: var(--dark);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .alert-info .alert-heading {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .resume-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .resume-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .resume-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resume-icon {
+            background-color: #e6effd;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .resume-details {
+            flex: 1;
+        }
+        
+        .resume-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+            color: var(--dark);
+        }
+        
+        .score-badge {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border-radius: 20px;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .view-btn {
+            margin-left: 1rem;
+        }
+        
+        /* Modal Styles */
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px 15px 0 0;
+            border-bottom: none;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+        }
+        
+        .close {
+            color: white;
+            opacity: 0.8;
+            text-shadow: none;
+        }
+        
+        .close:hover {
+            color: white;
+            opacity: 1;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .resume-preview {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .resume-stat {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 10px;
+            background-color: #f8f9fa;
+        }
+        
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+        
+        .stat-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        footer {
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+            padding: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            
+            .card-body {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="app-header text-center">
+           
+            <h1 class="app-title">ResuMatch <span style="color: var(--secondary);">AI</span></h1>
+            <p class="app-subtitle">Smart Resume Analyzer & Shortlisting System</p>
+        </div>
+        
+        
+        <div class="card main-card">
+            <div class="card-header text-center">
+                <h2><i class="fas fa-briefcase mr-2"></i> Resume Matching System</h2>
+                <p class="mb-0">Effortlessly match top talent with the right job!</p>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/matcher" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="job_description"><i class="fas fa-file-alt mr-2"></i>Job Description</label>
+                        <div class="job-description-area">
+                            <textarea class="form-control" id="job_description" name="job_description" rows="5" placeholder="Paste your job description here..." required></textarea>
+                        </div>
+                        <small class="text-muted">Enter the detailed job requirements above</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label><i class="fas fa-file-upload mr-2"></i>Upload Resumes</label>
+                        <div class="upload-area" id="upload-area">
+                            <div class="upload-icon">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h5 class="upload-text">Drop your resume files here or click to browse</h5>
+                            <p class="text-muted">Please upload at least 5 resumes for better comparison</p>
+                            <input type="file" class="form-control" id="resumes" name="resumes" multiple required accept=".pdf, .docx, .txt" style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer;">
+                        </div>
+                        <div id="file-list" class="mt-2 small text-muted"></div>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-magic mr-2"></i> Match Resumes
+                        </button>
+                    </div>
+                </form>
+                
+                {% if message %}
+                    <div class="alert alert-info mt-4">
+                        <h4 class="alert-heading"><i class="fas fa-check-circle mr-2"></i>{{ message }}</h4>
+                        
+                        {% if top_resumes %}
+                            <ul class="resume-list">
+                                {% for index in range(top_resumes|length) %}
+                                    <li class="resume-item" data-resume="{{ top_resumes[index] }}" data-score="{{ similarity_scores[index] }}">
+                                        <div class="resume-icon">
+                                            <i class="fas fa-file-alt"></i>
+                                        </div>
+                                        <div class="resume-details">
+                                            <div class="resume-name">{{ top_resumes[index] }}</div>
+                                        </div>
+                                        <span class="score-badge">
+                                            <i class="fas fa-star mr-1"></i>
+                                            {{ similarity_scores[index] }}
+                                        </span>
+                                        <button class="btn btn-outline-primary btn-sm view-btn" onclick="viewResume('{{ top_resumes[index] }}', '{{ similarity_scores[index] }}')">
+                                            <i class="fas fa-eye mr-1"></i> View
+                                        </button>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 ResuMatch AI - Smart Resume Analyzer & Shortlisting System</p>
+        </footer>
+    </div>
+    
+    <!-- Resume View Modal -->
+    <div class="modal fade" id="resumeModal" tabindex="-1" role="dialog" aria-labelledby="resumeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resumeModalLabel">Resume Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="resume-stat">
+                                <div class="stat-icon" style="background-color: #e6effd; color: #4361ee;">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-name">Match Score</div>
+                                    <div class="stat-value" id="match-score">92%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="resume-stat">
+                                <div class="stat-icon" style="background-color: #e6f9f6; color: #0cca98;">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div>
+                                    <div class="stat-name">File Name</div>
+                                    <div class="stat-value" id="file-name">resume.pdf</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5><i class="fas fa-list-check mr-2"></i>Key Skills Match</h5>
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="progress mb-3" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar" style="width: 85%; background-color: #4361ee;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small>Technical Skills</small>
+                                <small class="font-weight-bold">85%</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="progress mb-3" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar" style="width: 75%; background-color: #4cc9f0;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small>Experience</small>
+                                <small class="font-weight-bold">75%</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="progress mb-3" style="height: 8px;">
+                                <div class="progress-bar" role="progressbar" style="width: 90%; background-color: #3f37c9;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <small>Education</small>
+                                <small class="font-weight-bold">90%</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h5><i class="fas fa-file-lines mr-2"></i>Resume Preview</h5>
+                    <div class="resume-preview" id="resume-content">
+                        <p>Loading resume content...</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+                    <a href="#" id="download-resume" class="btn btn-primary">
+                        <i class="fas fa-download mr-1"></i> Download Resume
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Show selected file names
+        document.getElementById('resumes').addEventListener('change', function(e) {
+            const fileList = document.getElementById('file-list');
+            fileList.innerHTML = '';
+            
+            if (this.files.length > 0) {
+                fileList.innerHTML = '<strong>Selected files:</strong><br>';
+                for (let i = 0; i < this.files.length; i++) {
+                    fileList.innerHTML += `<i class="fas fa-file mr-1"></i> ${this.files[i].name}<br>`;
+                }
+            }
+        });
+        
+        // Make only the upload area clickable
+        document.getElementById('upload-area').addEventListener('click', function() {
+            document.getElementById('resumes').click();
+        });
+        
+        // View resume function
+        function viewResume(filename, score) {
+    // Set the modal title
+    document.getElementById('resumeModalLabel').innerText = 'Resume Details: ' + filename;
+
+    // Set the score and file name
+    document.getElementById('match-score').innerText = score;
+    document.getElementById('file-name').innerText = filename;
+
+    // Set the download link
+    document.getElementById('download-resume').href = '/uploads/' + filename;
+
+    // Show loading message while fetching resume content
+    document.getElementById('resume-content').innerHTML = `<p>Loading resume content...</p>`;
+
+    // Fetch actual resume content and details from the server
+    fetch(`/get_resume_text?filename=${filename}`)
+        .then(response => response.json())
+        .then(data => {
+            // Display extracted resume details
+            document.getElementById('resume-content').innerHTML = `
+                <div class="p-3">
+                    <h4>${filename}</h4>
+                    <p><strong>Extracted Resume Content:</strong></p>
+                    <p>${data.full_text.replace(/\n/g, '<br>')}</p>
+
+                    <h5>🔹 Summary</h5>
+                    <p>${data.summary || 'Not available'}</p>
+
+                    <h5>🛠 Skills</h5>
+                    <p>${data.skills.length > 0 ? data.skills.join(', ') : 'Not available'}</p>
+
+                    <h5>🏢 Experience</h5>
+                    <p>${data.experience.length > 0 ? data.experience.join('<br><br>') : 'Not available'}</p>
+
+                    <h5>🎓 Education</h5>
+                    <p>${data.education.length > 0 ? data.education.join('<br>') : 'Not available'}</p>
+                </div>
+            `;
+        })
+        .catch(error => {
+            document.getElementById('resume-content').innerHTML = `<p>Error loading resume content.</p>`;
+        });
+
+    // Show the modal
+    $('#resumeModal').modal('show');
+}
+
+        // Make entire resume item clickable
+        document.querySelectorAll('.resume-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                // Prevent the click when clicking the View button
+                if (e.target.closest('.view-btn')) return;
+                
+                const filename = this.getAttribute('data-resume');
+                const score = this.getAttribute('data-score');
+                viewResume(filename, score);
+            });
+        });
+    </script>
+</body>
+</html>
